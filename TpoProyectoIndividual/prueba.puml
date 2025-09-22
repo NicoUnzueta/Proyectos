@@ -1,0 +1,184 @@
+@startuml
+class GestionEventosPantallas.PanelEditarEvento {
+- Evento evento
+- JTextField txtNombre
+- JComboBox<TipoEvento> comboTipo
+- SimpleDateFormat sdf
+- Sistema sistema
+- JButton btnGuardar
+- JButton btnCancelar
+}
+
+class GestionEventos.ReunionPequeña {
+}
+class GestionEventos.ReunionMediana {
+}
+class GestionEventosPantallas.PanelCrearEvento {
+- JTextField txtNombre
+- JTextField txtFecha
+- JTextField txtUbicacion
+- JTextArea txtDescripcion
+- JComboBox<TipoEvento> comboTipo
+- JButton btnCancelar
+- JButton btnCrear
+- JFrame previo
+- Usuario creador
+- Sistema sistema
+}
+
+class GestionEventos.Conferencia {
+}
+class GestionEventos.ReunionGrande {
+}
+enum GestionEventos.TipoEvento {
++  REUNION_PEQUEÑA
++  REUNION_MEDIANA
++  REUNION_GRANDE
++  CONFERENCIA
+}
+
+class GestionEventosPantallas.PanelLogin {
+- JTextField txtNombreUsuario
+- JTextField txtMailUsuario
+- JButton btnCrearUsuario
+- JButton btnIngresar
+- Sistema sistema
+}
+
+class GestionEventosPantallas.PanelInvitar {
+- Evento evento
+- Sistema sistema
+}
+
+class GestionEventosPantallas.PanelHistorialEvento {
+- Usuario usuario
+- SimpleDateFormat sdf
+- Sistema sistema
+- JButton btnVolver
+}
+
+class GestionEventosPantallas.PanelEventoEspecifico {
+- Evento evento
+- Sistema sistema
+- Usuario usuario
+- JButton btnVolver
+- JButton btnAsistir
+- JButton btnVerAsistencias
+- JButton btnEditarEvento
+}
+
+class GestionEventosPantallas.PanelSistema {
+- JButton btnCambiarDeUsuario
+- JButton btnCrearEvento
+- JButton btnVerEventos
+- JButton btnHistorialEventos
+- Usuario usuario
+- Sistema sistema
+}
+
+class GestionEventos.Usuario {
+- String nombre
+- String mail
+- List<Evento> eventos
++ void invitacionAEvento(Evento)
++ boolean buscarEvento(int)
++ boolean compararUsuario(String)
++ String getMail()
++ String getNombre()
++ List<Evento> getEventosInvitados()
++ List<Evento> getEventosCreados()
++ List<Evento> getEventos()
++ List<Evento> getHistorialEventos()
++ List<Evento> getEventosFuturos()
++ void setMail(String)
++ void setNombre(String)
+}
+
+
+class GestionEventos.Sistema {
+- List<Usuario> usuarios
+- List<Evento> eventos
++ void crearUsuario(String,String)
++ Evento buscarEvento(int)
++ Usuario buscarUsuario(String)
++ void cargar()
++ Evento crearEvento(String,TipoEvento,String,Date)
++ Evento crearEvento(String,TipoEvento,String,Date,String)
++ Evento crearEvento(String,TipoEvento,String,Date,String,String)
+- Evento crearEventoCompleto(String,TipoEvento,String,Date,String,String)
++ List<Usuario> getUsuarios()
++ List<Evento> getEventos()
+- void cargarUsuario(String,String)
+- void guardarUsuariosEnArchivo(String,Usuario)
+- void cargarUsuariosDesdeArchivo(String)
+- void guardarEventosEnArchivo(String,Evento)
++ void modificarEventosEnArchivo(String)
+- void cargarEvento(String,TipoEvento,String,Date,String,String)
+- void cargarEventosDesdeArchivo(String)
++ void guardarInvitacionesEnArchivo(String,Evento,Usuario)
+- void cargarInvitacionesEnArchivo(String)
++ void guardarAsistenciasEnArchivo(String,Evento,Usuario)
+- void cargarAsistenciasEnArchivo(String)
+}
+
+
+class APP.App {
++ {static} void main(String[])
+}
+
+class GestionEventosPantallas.PanelVerEventos {
+- Usuario usuario
+- SimpleDateFormat sdf
+- Sistema sistema
+}
+
+abstract class GestionEventos.Evento {
+- {static} int contadorID
+- int id
+- String nombre
+- Date fecha
+- String descripcion
+- String ubicacion
+# int limitePersonas
+- Usuario creador
+- TipoEvento tipo
+- List<Usuario> asistencias
++ int cantidadAsistencias()
++ Boolean compararId(int)
++ long calcularDiasRestantes()
++ void actualizarEvento(String,Date,String,TipoEvento,String)
++ boolean compararCreador(String)
++ boolean compararUsuario(String)
++ void asisteUsuario(Usuario)
++ void setNombre(String)
++ void setDescripcion(String)
++ void setFecha(Date)
++ void setUbicacion(String)
++ void setTipo(TipoEvento)
++ TipoEvento getTipo()
++ String getNombre()
++ Date getFecha()
++ int getId()
++ int getLimitePersonas()
++ String getDescripcion()
++ String getUbicacion()
++ Usuario getCreador()
++ List<Usuario> getAsistencias()
+}
+
+
+
+
+GestionEventosPantallas.JFrame <|-- GestionEventosPantallas.PanelEditarEvento
+GestionEventos.Evento <|-- GestionEventos.ReunionPequeña
+GestionEventos.Evento <|-- GestionEventos.ReunionMediana
+GestionEventosPantallas.JFrame <|-- GestionEventosPantallas.PanelCrearEvento
+GestionEventos.Evento <|-- GestionEventos.Conferencia
+GestionEventos.Evento <|-- GestionEventos.ReunionGrande
+GestionEventosPantallas.JFrame <|-- GestionEventosPantallas.PanelLogin
+GestionEventosPantallas.JFrame <|-- GestionEventosPantallas.PanelInvitar
+GestionEventosPantallas.JFrame <|-- GestionEventosPantallas.PanelHistorialEvento
+GestionEventosPantallas.JFrame <|-- GestionEventosPantallas.PanelEventoEspecifico
+GestionEventosPantallas.JFrame <|-- GestionEventosPantallas.PanelSistema
+GestionEventosPantallas.JFrame <|-- GestionEventosPantallas.PanelVerEventos
+@enduml

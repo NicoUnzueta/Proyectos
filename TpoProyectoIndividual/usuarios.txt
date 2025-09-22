@@ -1,0 +1,7 @@
+manuel;manu@you.com
+martin;martin@you.com
+javo;javo@you.com
+nico;nico@you.com
+fume;fume@you.com
+jorge;jorge@you.com
+raul;raul@you.com
